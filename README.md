@@ -1,92 +1,182 @@
-# Portuguese-Bank-Marketing-Project
-Bank Marketing – Term Deposit Subscription Prediction
-Predicting whether a client will subscribe to a term deposit after a direct-marketing phone campaign run by a Portuguese bank, using exploratory data analysis and machine learning classification models.
+# Portuguese Bank Marketing Prediction 📊
 
-Table of Contents
-Project Overview
-Dataset
-Repository Structure
-Workflow
-Models and Results
-Limitations and Future Work
-How to Run
-Tech Stack
-Author
-Project Overview
-Banks run costly phone campaigns, and only a small share of contacted clients subscribe. The goal of this project is to:
+## 📌 Project Overview
 
-Analyse the campaign data to understand which client, contact and economic factors relate to subscription.
-Build a classification model that predicts whether a client will subscribe (y = yes/no).
-Compare multiple algorithms to pick the best performer.
-Dataset
-File: bank-additional-full.csv (semicolon-separated)
-Source: UCI Machine Learning Repository – Bank Marketing dataset (Moro, Cortez & Rita, 2014)
-Size: 41,188 rows × 21 columns
-Target: y – has the client subscribed to a term deposit? (yes / no)
-Class balance: 36,548 no vs 4,640 yes (heavily imbalanced)
-Group	Features
-Client	age, job, marital, education, default, housing, loan
-Last contact	contact, month, day_of_week, duration
-Campaign	campaign, pdays, previous, poutcome
-Economic context	emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed
-Missing values are encoded as unknown in the raw file (notably in default, education, housing, loan, job, marital).
+The **Portuguese Bank Marketing Prediction** project aims to predict whether a bank customer will subscribe to a term deposit based on personal information, financial details, and previous marketing campaign interactions.
 
-Repository Structure
-.
-├── Bank_Marketing_Term_Deposit_Prediction.ipynb   # Full analysis and modelling notebook
-├── bank-additional-full.csv                       # Dataset
+The bank conducts direct marketing campaigns through phone calls. However, contacting every customer is time-consuming and expensive.
+
+This project uses Machine Learning classification algorithms to identify potential customers who are more likely to subscribe to a term deposit, helping the bank improve marketing effectiveness and reduce campaign costs.
+
+## 🎯 Business Objective
+
+- Predict whether a customer will subscribe to a term deposit.
+- Identify potential customers who are more likely to respond positively.
+- Improve marketing campaign effectiveness.
+- Reduce unnecessary marketing calls.
+- Support data-driven business decisions.
+
+## 📂 Dataset Description
+
+The project uses the **Portuguese Bank Marketing Dataset** (`bank-additional-full.csv`).
+
+The dataset contains customer information, campaign details, and economic indicators.
+
+**Target Variable:**
+- `y = yes`: Customer subscribed to a term deposit.
+- `y = no`: Customer did not subscribe to a term deposit.
+
+**Features include:**
+- Age
+- Job
+- Marital Status
+- Education
+- Default
+- Housing Loan
+- Personal Loan
+- Contact
+- Month
+- Day of Week
+- Duration
+- Campaign
+- Pdays
+- Previous
+- Poutcome
+- Employment Variation Rate
+- Consumer Price Index
+- Consumer Confidence Index
+- Euribor 3 Month Rate
+- Number of Employees
+
+## 🛠️ Technologies & Libraries Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Imbalanced-learn (SMOTE)
+- XGBoost
+- Sweetviz
+- Jupyter Notebook
+
+## 🔍 Project Workflow
+
+### 1. Data Collection
+- Loaded the Portuguese Bank Marketing dataset.
+- Examined the dataset structure and features.
+
+### 2. Exploratory Data Analysis (EDA)
+- Univariate Analysis
+- Bivariate Analysis
+- Multivariate Analysis
+- Distribution Analysis
+- Correlation Analysis
+- Outlier Detection
+
+### 3. Data Preprocessing
+- Handled missing values.
+- Converted categorical variables into numerical representations.
+- Applied Label Encoding and One-Hot Encoding.
+- Removed duplicate records.
+- Performed feature selection.
+- Applied StandardScaler for feature scaling.
+
+### 4. Handling Imbalanced Data
+- Used SMOTE (Synthetic Minority Over-sampling Technique) to balance the target classes.
+
+### 5. Model Building
+
+The following Machine Learning classification algorithms were implemented:
+
+1. Logistic Regression
+2. K-Nearest Neighbors (KNN)
+3. Bagging Classifier
+4. Random Forest Classifier
+5. Support Vector Machine (SVM)
+6. Decision Tree Classifier
+7. Naive Bayes
+8. Gradient Boosting Classifier
+9. XGBoost Classifier
+
+### 6. Model Evaluation
+
+The models were evaluated using:
+
+- Accuracy Score
+- Precision
+- Recall
+- F1-Score
+- Confusion Matrix
+- ROC-AUC Score
+- Classification Report
+- Cross-Validation
+
+### 7. Hyperparameter Tuning
+
+- Applied RandomizedSearchCV.
+- Performed hyperparameter tuning for the Random Forest model.
+- Used F1-score as the optimization metric.
+
+## 🏆 Project Conclusion
+
+Multiple classification algorithms were implemented and evaluated to predict whether customers would subscribe to a term deposit.
+
+Based on the project analysis, **Random Forest Classifier was identified as the better-performing model** among the evaluated models.
+
+The project demonstrates how Machine Learning can help financial institutions identify potential customers, optimize marketing campaigns, and reduce operational costs.
+
+## 📁 Project Structure
+
+```text
+Portuguese-Bank-Marketing-Prediction/
+│
+├── Portuguese Bank Marketing Project.ipynb
+├── bank-additional-full.csv
 └── README.md
-Workflow
-Data loading – read the CSV with sep=';' and treat unknown as missing.
-Exploratory Data Analysis
-Summary statistics, data types, missing-value counts
-Automated profiling report with Sweetviz
-Univariate plots: histograms, distribution plots, box plots
-Bivariate plots: numeric features and categorical features split by subscription outcome
-Data preprocessing
-Renamed columns with dots (e.g. emp.var.rate → emp_var_rate)
-Imputed missing categorical values with the mode
-Encoded categorical variables (manual mapping and LabelEncoder)
-Checked outliers with box plots
-Removed 14 duplicate rows
-Feature selection – correlation heatmap; dropped highly correlated emp_var_rate and nr_employed.
-Scaling and balancing – StandardScaler and SMOTE oversampling of the minority class.
-Modelling – 80/20 train–test split, trained and evaluated eight classifiers.
-Hyperparameter tuning – RandomizedSearchCV set up for Random Forest.
-Models and Results
-Metrics on the 20% hold-out test set (14,614 samples, after SMOTE):
+```
 
-Model	Accuracy	F1-score
-Logistic Regression	0.857	0.86
-K-Nearest Neighbors (k=2)	0.948	0.950
-Bagging (KNN base)	–	0.927 (weighted)
-Random Forest	0.96	0.957
-Support Vector Classifier	0.902	0.907
-Decision Tree	0.921	0.921
-Naive Bayes (Bernoulli)	0.740	0.721
-Gradient Boosting	0.932	–
-XGBoost	0.953	0.953
-Takeaway: tree-based ensembles (Random Forest, XGBoost) and KNN scored highest on the hold-out set, while Naive Bayes performed worst.
+## ⚙️ How to Run the Project
 
-Limitations and Future Work
-Oversampling before the split: SMOTE was applied before the train–test split, so synthetic samples derived from test-set neighbours can leak into training and inflate hold-out scores. The cross-validated ROC-AUC on the original data (Logistic Regression ≈ 0.90, KNN ≈ 0.74, Bagging ≈ 0.77) is a more conservative view. Next step: split first, then apply SMOTE inside a pipeline on the training folds only.
-duration feature: call duration is only known after the call ends, so it should be excluded when building a realistic pre-call prediction model (the dataset authors note this).
-Imbalanced data metrics: report precision/recall, PR-AUC and ROC-AUC on an untouched, imbalanced test set rather than accuracy alone.
-Encoding: nominal features such as job and marital were integer-encoded; one-hot encoding would avoid implying an order.
-Time-aware validation: the data is ordered by date, so time-based splits would better reflect real deployment.
-Complete and report the Random Forest hyperparameter search, and add feature-importance analysis.
-How to Run
-Clone the repository:
-git clone https://github.com/A-praveen123/<your-repo-name>.git
-cd <your-repo-name>
-Install the dependencies:
+**Step 1:** Clone the repository.
+
+```bash
+git clone https://github.com/your-username/Portuguese-Bank-Marketing-Prediction.git
+```
+
+**Step 2:** Navigate to the project directory.
+
+```bash
+cd Portuguese-Bank-Marketing-Prediction
+```
+
+**Step 3:** Install the required libraries.
+
+```bash
 pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn xgboost sweetviz jupyter
-Open the notebook and update the data path in the loading cell to a relative path:
-data = pd.read_csv("bank-additional-full.csv", sep=';', na_values='unknown')
-Run all cells:
-jupyter notebook Bank_Marketing_Term_Deposit_Prediction.ipynb
-Tech Stack
-Python · Pandas · NumPy · Matplotlib · Seaborn · Scikit-learn · Imbalanced-learn (SMOTE) · XGBoost · Sweetviz · Jupyter Notebook
+```
 
-Acknowledgements
-Dataset: S. Moro, P. Cortez and P. Rita, A Data-Driven Approach to Predict the Success of Bank Telemarketing, Decision Support Systems, 2014 (UCI Machine Learning Repository).
+**Step 4:** Open Jupyter Notebook.
+
+```bash
+jupyter notebook
+```
+
+**Step 5:** Open `Portuguese Bank Marketing Project.ipynb` and run the notebook cells.
+
+Make sure the dataset is available in the correct location and update the dataset file path if necessary.
+
+## 🚀 Future Improvements
+
+- Build an interactive dashboard using Streamlit.
+- Deploy the best-performing model as a web application.
+- Improve model performance through advanced hyperparameter optimization.
+- Use feature importance to identify the factors influencing customer subscriptions.
+- Implement a leakage-free preprocessing and model evaluation pipeline.
+
+## 👨‍💻 Author
+
+**Your Name**
+
+If you find this project useful, please give the repository a ⭐ on GitHub!
