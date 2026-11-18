@@ -177,6 +177,6 @@ Make sure the dataset is available in the correct location and update the datase
 
 ## 👨‍💻 Author
 
-**Your Name**
+**P. Sumanth**
 
 If you find this project useful, please give the repository a ⭐ on GitHub!
